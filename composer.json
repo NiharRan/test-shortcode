@@ -1,0 +1,19 @@
+{
+  "name": "nihardas/test-shortcode",
+  "autoload": {
+    "psr-4": {
+      "Nihardas\\TestShortcode\\": "src/"
+    },
+    "files": [
+      "src/hooks/actions.php",
+      "src/hooks/filters.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Nihar Ranjan Das",
+      "email": "niharranjandasmu@gmail.com"
+    }
+  ],
+  "require": {}
+}
