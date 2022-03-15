@@ -42,15 +42,15 @@ class TestShortCode
 
     public function activate()
     {
-        $is_installed = get_option('test-shortcode2');
+        $is_installed = get_option('test-shortcode');
         if (!$is_installed) {
-            update_option('test-shortcode2', true);
+            update_option('test-shortcode', true);
         }
     }
 
     public function deactivate()
     {
-        delete_option('test-shortcode2');
+        delete_option('test-shortcode');
     }
 
     public function init_plugin()
@@ -58,8 +58,8 @@ class TestShortCode
         $this->services['author'] = new AuthorService();
         $this->services['general'] = new GeneralService();
 
-        do_action('add_author_shortcode_value', '{{author.phone}}', '01761152186');
-        do_action('add_general_shortcode_value', '{{general.published_at}}', date('d-m-Y'));
+        do_action('add_author_shortcode_value', '{{author.phone}}', 'Author Contact No.', '01761152186');
+        do_action('add_general_shortcode_value', '{{general.published_at}}', 'Publish Date', date('d-m-Y'));
 
         $text = '<p>Hi,<br>I am {{author.name}} and {{author.email}} is my personal email.</p>
                 <small>@copyright <strong>{{general.title}}</strong> {{general.version}}</small>';

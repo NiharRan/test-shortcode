@@ -12,6 +12,7 @@ class ShortCode
         add_filter('test_shortcodes', [$this, 'getShortCodes']);
         $this->setGeneralShortCodes();
         $this->setAuthorShortCodes();
+        add_action('add_shortcode', [$this, 'addShortCode'], 10, 3);
     }
 
     public function setGeneralShortCodes()
@@ -40,6 +41,15 @@ class ShortCode
         ];
 
         return $this->shortcodes;
+    }
+
+    public function addShortCode($module, $code, $title)
+    {
+        foreach ($this->shortcodes as &$shortcode) {
+            if ($shortcode['key'] == $module) {
+                $shortcode['shortcodes'][$code] = $title;
+            }
+        }
     }
 
     public function getShortCodes($module = '')
