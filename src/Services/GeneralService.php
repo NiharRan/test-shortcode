@@ -4,34 +4,32 @@ namespace Nihardas\TestShortcode\Services;
 
 class GeneralService
 {
-    private $values;
+    private static $values;
 
     public function __construct()
     {
-        $this->values = [];
-        $this->setShortCodes();
-        add_action('add_general_shortcode_value', [$this, 'addShortCode'], 10, 2);
+        self::$values = [];
+        self::setShortCodes();
     }
 
-    public function setShortCodes()
+    public static function setShortCodes()
     {
-        $this->values = [
+        self::$values = [
             '{{general.title}}' => 'Test Short Code Plugin',
             '{{general.version}}' => 'v1.1.0'
         ];
     }
 
-    public function addShortCode($key, $value)
+    public static function addShortCode($key, $value)
     {
-        $this->values[$key] = $value;
-        dd($this->values);
+        self::$values[$key] = $value;
     }
 
-    public function getGeneralShorCodes($field = '')
+    public static function getGeneralShorCodes($field = '')
     {
         if (empty($field)) {
-            return;
+            return self::$values;
         }
-        return isset($this->values[$field]) ? $this->values[$field] : '';
+        return isset(self::$values[$field]) ? self::$values[$field] : '';
     }
 }

@@ -1,4 +1,12 @@
 <?php
 
-do_action('add_author_shortcode_value', '{{author.phone}}', '01761152186');
-do_action('add_general_shortcode_value', '{{general.published_at}}', date('d-m-Y'));
+use Nihardas\TestShortcode\Services\AuthorService;
+use Nihardas\TestShortcode\Services\GeneralService;
+
+add_action('add_author_shortcode_value', function ($code, $value) {
+    AuthorService::addShortCode($code, $value);
+}, 10, 2);
+add_action('add_general_shortcode_value', function ($code, $value) {
+    GeneralService::addShortCode($code, $value);
+}, 10, 2);
+

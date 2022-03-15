@@ -4,33 +4,32 @@ namespace Nihardas\TestShortcode\Services;
 
 class AuthorService
 {
-    private $values;
+    private static $values;
 
     public function __construct()
     {
-        $this->values = [];
-        $this->setShortCodes();
-        add_action('add_author_shortcode_value', [$this, 'addShortCode'], 10, 2);
+        self::$values = [];
+        self::setShortCodes();
     }
 
-    public function setShortCodes()
+    public static function setShortCodes()
     {
-        $this->values = [
+        self::$values = [
             '{{author.name}}' => 'Nihar Ranjan Das',
             '{{author.email}}' => 'niharranjandasmu@gmail.com'
         ];
     }
 
-    public function addShortCode($key, $value)
+    public static function addShortCode($key, $value)
     {
-        $this->values[$key] = $value;
+        self::$values[$key] = $value;
     }
 
-    public function getAuthorShorCodes($field = '')
+    public static function getAuthorShorCodes($field = '')
     {
         if (empty($field)) {
-            return;
+            return self::$values;
         }
-        return isset($this->values[$field]) ? $this->values[$field] : '';
+        return isset(self::$values[$field]) ? self::$values[$field] : '';
     }
 }
