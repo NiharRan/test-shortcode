@@ -68,7 +68,7 @@ class TestShortCode
         $text = $this->parser->parse($text);
         echo $text;
         $shortcodes = apply_filters('get_shortcode_values', []);
-        echo json_encode($shortcodes, JSON_PRETTY_PRINT);
+        echo '<br><pre>' . json_encode($shortcodes, JSON_PRETTY_PRINT) . '</pre>';
         exit();
     }
 
