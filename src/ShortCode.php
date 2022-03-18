@@ -10,6 +10,7 @@ class ShortCode
     public function __construct()
     {
         add_filter('test_shortcodes', [$this, 'getShortCodes']);
+        add_filter('fluentcrm_extended_general_smart_codes', [$this, 'getShortCodes']);
         $this->setGeneralShortCodes();
         $this->setAuthorShortCodes();
         add_action('add_shortcode', [$this, 'addShortCode'], 10, 3);
@@ -18,11 +19,11 @@ class ShortCode
     public function setGeneralShortCodes()
     {
         $this->shortcodes[] = [
-            'key' => 'general',
-            'title' => __('General'),
+            'key' => 'general2',
+            'title' => __('General2'),
             'shortcodes' => apply_filters('test_author_shortcodes', [
-                '{{general.title}}' => __('Title'),
-                '{{general.version}}' => __('Version')
+                '{{general2.title}}' => __('Title'),
+                '{{general2.version}}' => __('Version')
             ])
         ];
 
@@ -33,7 +34,7 @@ class ShortCode
     {
         $this->shortcodes[] = [
             'key' => 'author',
-            'title' => __('Author Name'),
+            'title' => __('Author'),
             'shortcodes' => apply_filters('test_author_shortcodes', [
                 '{{author.name}}' => __('Author Name'),
                 '{{author.email}}' => __('Author E-mail')

@@ -14,6 +14,7 @@ Author URI: http://nh.tt/
 */
 
 
+use Nihardas\TestShortcode\ExternalActivity;
 use Nihardas\TestShortcode\Services\AuthorService;
 use Nihardas\TestShortcode\Services\GeneralService;
 use Nihardas\TestShortcode\ShortCode;
@@ -38,6 +39,10 @@ class TestShortCode
         add_action('plugins_loaded', [$this, 'init_plugin']);
         $this->shortcode = new ShortCode();
         $this->parser = new Parser();
+
+        if (defined('FLUENTCAMPAIGN_DIR_FILE')) {
+            new ExternalActivity();
+        }
     }
 
     public function activate()
@@ -56,25 +61,7 @@ class TestShortCode
     public function init_plugin()
     {
         $this->services['author'] = new AuthorService();
-        $this->services['general'] = new GeneralService();
-
-        $text = '<p>Hi,<br>I am {{author.name}} and {{author.email}} is my personal email.</p>
-                <small>@copyright <strong>{{general.title}}</strong> {{general.version}}</small>';
-        echo $text;
-        echo '<br/><br/> --------------------------------------------- <br/><br>';
-
-        $text = $this->parser->parse($text);
-        echo $text;
-
-        echo '<br/><br/> --------------------------------------------- <br/><br>';
-        echo 'Adding two more short code {{author.contact}} & {{general.published_at}}';
-        echo '<br/><br/> --------------------------------------------- <br/><br>';
-        do_action('add_author_shortcode_value', '{{author.phone}}', 'Author Contact No.', '01761152186');
-        do_action('add_general_shortcode_value', '{{general.published_at}}', 'Publish Date', date('d-m-Y'));
-        echo '<br/><br/> --------------------------------------------- <br/><br>';
-        $shortcodes = apply_filters('get_shortcode_values', []);
-        echo '<br><pre>' . json_encode($shortcodes, JSON_PRETTY_PRINT) . '</pre>';
-        exit();
+        $this->services['general2'] = new GeneralService();
     }
 
     public static function init()

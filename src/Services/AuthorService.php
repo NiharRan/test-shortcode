@@ -4,12 +4,13 @@ namespace Nihardas\TestShortcode\Services;
 
 class AuthorService
 {
-    private static $values;
+    protected static $values;
 
     public function __construct()
     {
         self::$values = [];
         self::setShortCodes();
+        add_filter('fluentcrm_smartcode_fallback_callback_author', [$this, 'getAuthorShorCode'], 10, 4);
     }
 
     public static function setShortCodes()
@@ -23,6 +24,11 @@ class AuthorService
     public static function addShortCode($key, $value)
     {
         self::$values[$key] = $value;
+    }
+
+    public function getAuthorShorCode($matchKey, $valueKey, $defaultValue, $subscriber)
+    {
+        return isset(self::$values[$matchKey]) ? self::$values[$matchKey] : '';
     }
 
     public static function getAuthorShorCodes($field = '')
